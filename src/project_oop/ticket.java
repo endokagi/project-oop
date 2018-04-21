@@ -10,23 +10,26 @@ package project_oop;
  * @author Witthawad Tanoi
  */
 public class ticket {
-    BookSystem booksystem;
-    login lg;
-    user User;
-    car Car;
-    Station station;
+    private int stationAt,stationTo,time,nameCar;
+    private String name,seat;
+
+    public ticket(String name,int stationAt,int stationTo,int time,int nameCar,String seat) {
+        this.name = name;
+        this.nameCar = nameCar;
+        this.stationAt = stationAt;
+        this.stationTo = stationTo;
+        this.time = time;
+        this.seat =seat;
+        this.nameCar = nameCar;
+    }
     
-    public ticket() {
-        System.out.println("Ticket : ");
-        System.out.println("");
-        System.out.println("Username : "+User.getName());
-        System.out.println("From : "+booksystem.from);
-        System.out.println("To : "+booksystem.to);
-        System.out.println("Time : "+booksystem.time);
-        System.out.println(Car.o_seat);
-        System.out.println("Seat : "+Car.se_seat);
+    String Ticket() {
+        String toString = "Ticket : \n"+
+        "Username : "+name+"\nFrom : "+stationAt+
+        "\nTo : "+stationTo+"\nTime : "+time+"Round "+nameCar+
+        "\nSeat : "+seat;
         
-        
+        return toString;
     }
     
 }

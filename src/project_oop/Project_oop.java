@@ -27,12 +27,14 @@ public class Project_oop {
          do{
              
              while(run){
-                 System.out.println("Welcome to NoneTicket");
-                 System.out.print("(1)Login"
-                         + "\n(2)Register"
-                         + "\n(3)Exit"
+                 System.out.println("Welcome to NoneTicket"
+                         + "\nSelect below :\n");
+                 System.out.print("(1 Login"
+                         + "\n(2) Register"
+                         + "\n(3) Exit"
                          + "\n $ Enter : ");
                  input=lg.string.nextLine();
+                 System.out.println("");
                  switch(input){
                         case"1":
                             if(lg.login()){
@@ -41,12 +43,9 @@ public class Project_oop {
                             }
                             else
                                 System.out.println("not found! try again.\n");
-
                         break;
                          case"2":
                              lg.regis();
-
-
                          break;
                          case"3":
                              run=false;
@@ -55,28 +54,22 @@ public class Project_oop {
              while(acc_login){
                  System.out.println("Menu :"
                          + "\nYou have "+userAt.getMoney()+" $");
-                    System.out.print("\n(1)Buy Ticket "
-                            + "\n(2)TopUp Money"
-                            + "\n(3)Logout"
+                    System.out.print("\n(1) Buy Ticket "
+                            + "\n(2) TopUp Money"
+                            + "\n(3) Logout"
                             + "\n $ Enter ");
                     input=lg.string.nextLine();
+                    System.out.println("");
                     switch(input){
                         case"1":
                             booking.buyTicket(userAt);
                             break;
                         case"2":
                             booking.topupMoney(userAt);
-                            
                             break;
                         case"3":acc_login=false;
                     }
              }}
-         }while(run);
-         
-         
-         
-        
-    }
-    
-    
+         }while(run);   
+    }   
 }

@@ -14,7 +14,8 @@ public class BookSystem {
         public Scanner number=new Scanner(System.in);
         public Scanner character=new Scanner(System.in);
         Station bus_stations[];
-        int road,from,to,time,car,z=0;
+        String seat;
+        int road,time,car,price,stationAt,stationTo;
         boolean check = false;
         car Car_At;
         user User_At;
@@ -51,45 +52,91 @@ public class BookSystem {
             int stationTo;
             int time;
             do{
-              System.out.println("Go( 1 )\n"+showtoGo()
-                      +"\nReturn ( 2 )\n"+showtoBack()
-                      +"\nBack(B)");
+              System.out.print("Go press ( 1 )\n"+showtoGo()
+                      +"\n\nReturn press ( 2 )\n"+showtoBack()
+                      +"\n\nBack to menu press (B)"
+                              + "\n Select: ");
               input=character.nextLine();
               switch(input){
                     case"1":
-                        System.out.println("Select station From\n"+showIndexFrom(1));
+                        System.out.println("\nSelect station From\n"+showIndexFrom(1));
+                        System.out.print("\nSelect: ");
                         stationAt=number.nextInt();
-                        System.out.println("Select station To\n"+showIndexTo(1,(5-stationAt)));
+                        System.out.print("\nSelect station To\n"+showIndexTo(1,(5-stationAt)));
+                        System.out.print("\nSelect: ");
                         stationTo=number.nextInt();
-                        System.out.println("Select Time\n"+showTime(1));
+                        System.out.print("\nSelect Time\n"+showTime(1));
+                        System.out.print("\nSelect: ");
                         time = number.nextInt();
-                        System.out.println("Select Car\n"+showCar(1,stationAt, time));
+                        System.out.print("\nSelect Car\n"+showCar(1,stationAt, time));
+                        System.out.print("\nSelect: ");
                         car = number.nextInt();
-                        System.out.println("Select Seat\n"+showSeat(1,stationAt,time,car));
-                       Car_At.selectSeat();
-                        System.out.println("This all change of you is "+calulate(1, stationAt, stationTo, car, time));
+                        System.out.print("Select Seat :"+showSeat(1, stationAt, time, car));
+                        System.out.print("\nSelect: ");
+                        seat = character.nextLine();
+                        Car_At.selectSeat(seat);
+                        price=calulate(1, stationTo);
+                        System.out.println("All price is "+price);
                         
-                        System.out.print("You need confrim"+"\nconfrim pass (1)"
-                                + "\nCancel and beck to menu pass (2)"
+                        if(user_at.getMoney()>=price){
+                            
+                        System.out.print("You need confrim : "+"\nIf confrim pass (1)"
+                                + "\nIf cancel and beck to menu pass (2)"
                                 + "\n>> ");road = number.nextInt();
-                                if(road ==1){
-                                    if(User_At.getMoney()<0){
-                                        System.out.println("Your money not enongh");
-                                        check = false;
-                                    }
-                                    else {ticket tk = new ticket();
-                                    check = false;}
-                                }else {check = false;}
+                                if(road==1){
+                               user_at.payMoney(price);
+                               ticket tk = new ticket(user_at.getName(),stationAt,stationTo,time,car,seat);
+                                    System.out.println(tk.Ticket());
+                               
+                                }
+                                else {System.out.println("Back to Menu");}
+                                buying = false;
+                                }else{System.out.println("You need topupMoney ");
+                            buying = false;
+                        }        
                         break;
+                        
                     case"2":
-                        System.out.println("Select station From\n"+showIndexFrom(2));
-                        stationAt=number.nextInt();
-                        System.out.println("Select station To\n"+showIndexTo(2,stationAt));
-                        stationTo=number.nextInt();
-                        System.out.println("Select Time\n"+showTime(2));
-                        time = number.nextInt();
-                        System.out.println("Select Car\n"+showCar(2,stationAt, time));
-                        car = number.nextInt();
+                        do{
+                        System.out.print("\nSelect station From\n"+showIndexFrom(2));
+                        System.out.print("Select: ");
+                        stationAt=number.nextInt();}while(!(stationAt>0&&stationAt<=bus_stations.length));
+                        do{
+                        System.out.print("\nSelect station To\n"+showIndexTo(2,stationAt));
+                        System.out.print("\nSelect: ");
+                        stationTo=number.nextInt();}while(!(stationTo>0&&stationTo<=(bus_stations.length-1)));
+                        do{
+                        System.out.print("\nSelect Time\n"+showTime(2));
+                        System.out.print("\nSelect: ");
+                        time = number.nextInt();}while(!(stationTo>0&&stationTo<=(bus_stations.length+1)));
+                        do{
+                        System.out.print("Select Car\n"+showCar(2,stationAt, time));
+                        System.out.print("Select: ");
+                        car = number.nextInt();}while(!(stationTo>0&&stationTo<=(bus_stations.length-3)));
+                        do{
+                        System.out.print("Select Seat :"+showSeat(2, stationAt, time, car));
+                        System.out.print("Select: ");
+                        seat = character.nextLine();
+                        Car_At.selectSeat(seat);}while(!(stationTo>0&&stationTo<=(Car_At.getSeat().length)));
+                        price=calulate(1, stationTo);
+                        System.out.println("All price is "+price);
+                        
+                        if(user_at.getMoney()>=price){
+                            
+                        System.out.print("You need confrim : "+"\nIf confrim pass (1)"
+                                + "\nIf cancel and beck to menu pass (2)"
+                                + "\n>> ");road = number.nextInt();
+                                if(road==1){
+                               user_at.payMoney(price);
+                               ticket tk = new ticket(user_at.getName(),stationAt,stationTo,time,car,seat);
+                                    System.out.println(tk.Ticket());
+                               
+                                }
+                                else {System.out.println("Back to Menu");}
+                                buying = false;
+                                }else{System.out.println("You need topupMoney ");
+                            buying = false;
+                        }        
                         break;
                     case"b":case"B":
                         buying=false;
@@ -173,73 +220,44 @@ public class BookSystem {
             Station StationAt=bus_stations[stationAt-1];
             if(type==1){
             car_at=StationAt.getCar_go();
-            car="(1)"+car_at[0][indexTime-1].getRound()+"\n(2)"+
+            car="(1) "+car_at[0][indexTime-1].getRound()+"\n(2) "+
                 car_at[1][indexTime-1].getRound();}
             else if(type==2){
             car_at=StationAt.getCar_back();
-             car="(1)"+car_at[0][indexTime-1].getRound()+"\n(2)"+
+             car="(1) "+car_at[0][indexTime-1].getRound()+"\n(2) "+
             car_at[1][indexTime-1].getRound();}
             
             return car;
         }
         
-        private String showSeat(int type,int indexfrom,int indextime,int indexcar){
+        private String showSeat(int type,int stationAt,int indextime,int indexcar){
             String seat="";
             car[][] car_at=null;
-            Station StationAt=bus_stations[indexfrom-1];
+            Station StationAt=bus_stations[stationAt-1];
             if(type==1){
                 car_at=StationAt.getCar_go();
                 Car_At=car_at[indexcar-1][indextime-1];
-                seat= Car_At.showSeat();
-                
+                seat = Car_At.showSeat();
                 
             }else if(type==2){
                 car_at=StationAt.getCar_back();
                 Car_At=car_at[indexcar-1][indextime-1];
-                seat=Car_At.showSeat();
+                seat = Car_At.showSeat();
+ 
             }
             return seat;
         }
-        private int calulate(int type,int indexfrom,int indexto,int indexcar,int indextime){
+        
+        private int calulate(int type,int indexto){
             int cal = 0;
-            int money,money2;
-            int test_cal = 0,test_cal2 = 0;
-            car Car
             
             if(type==1){
-                cal = test_cal+200;
-                money2 = User_At.getMoney();
-                money = money2 - cal;
-                User_At.payMoney(money);
+                cal = ((5-indexto)*50)+Car_At.getPrice();
             }
             else {
-                    test_cal =(5-indexto)*20;
-            
-            switch(indexcar){
-                case 1:switch(indextime){
-                    case 1:test_cal2 = 50; break;
-                    case 2:test_cal2 = 50;break;
-                    case 3:test_cal2 = 50;break;
-                    case 4:test_cal2 = 50;break;
-                    case 5:test_cal2 = 50;break;
-                    case 6:test_cal2 = 50;break;
-                }
-                case 2:switch(indextime){
-                    case 1:test_cal2 = 120; break;
-                    case 2:test_cal2 = 120;break;
-                    case 3:test_cal2 = 120;break;
-                    case 4:test_cal2 = 120;break;
-                    case 5:test_cal2 = 120;break;
-                    case 6:test_cal2 = 120;break;
-                }
+                    cal =((5-indexto)*30)+Car_At.getPrice();
+                    
             }
-            cal = test_cal+test_cal2;
-                 money2 = User_At.getMoney();
-                 money = money2-cal;
-                 User_At.payMoney(money);
-}
-            
-            
-            return money;
+            return cal;
         }
 }

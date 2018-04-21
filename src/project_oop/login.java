@@ -16,6 +16,7 @@ public class login{
             String name=null;
             boolean uncheck_id=true;
                 while(uncheck_id){
+                    System.out.println("Register\n");
                     System.out.print("Enter ID: ");
                     id_in=string.nextLine();
                     if(checkId(id_in)){
@@ -41,6 +42,7 @@ public class login{
         }
         boolean login(){
               boolean check=false;
+              System.out.println("Login\n");
               System.out.print("Enter ID: ");
               String id=string.nextLine();
               System.out.print("Enter password: ");

@@ -50,19 +50,17 @@ public abstract class car {
         return o_seat;
     }
     
-    String[] selectSeat(){
+    String selectSeat(String seat2){
         do{
-        System.out.print(">> ");
-        se_seat = String.nextLine();
         
         for(int i = 0;i<arr_seat.size();i++){
-            if((se_seat.equals(arr_seat.get(i)))){
-                System.out.println("This seat is full");
-                selectSeat();
+            if((seat2.equals(arr_seat.get(i)))){
+                System.out.println("This seat is not empty");
+                selectSeat(seat2);
             }
-        }arr_seat.add(se_seat);seat[arr_seat.size()] = "Full";z=1;
+        }arr_seat.add(seat2);seat[arr_seat.size()] = "Full";z=1;
         
-    }while(z!=1);return seat;
+    }while(z!=1);return seat2;
         }
     
     
