@@ -59,20 +59,25 @@ public class BookSystem {
               input=character.nextLine();
               switch(input){
                     case"1":
-                        System.out.println("\nSelect station From\n"+showIndexFrom(1));
+                        do{
+                        System.out.print("\nSelect station From\n"+showIndexFrom(1));
+                        System.out.print("Select: ");
+                        stationAt=number.nextInt();}while(!(stationAt>0&&stationAt<=bus_stations.length));
+                        do{
+                        System.out.print("\nSelect station To\n"+showIndexTo(1,stationAt));
                         System.out.print("\nSelect: ");
-                        stationAt=number.nextInt();
-                        System.out.print("\nSelect station To\n"+showIndexTo(1,(5-stationAt)));
-                        System.out.print("\nSelect: ");
-                        stationTo=number.nextInt();
+                        stationTo=number.nextInt();}while(!(stationTo>0&&stationTo<=(bus_stations.length-1)));
+                        do{
                         System.out.print("\nSelect Time\n"+showTime(1));
                         System.out.print("\nSelect: ");
-                        time = number.nextInt();
-                        System.out.print("\nSelect Car\n"+showCar(1,stationAt, time));
-                        System.out.print("\nSelect: ");
-                        car = number.nextInt();
+                        time = number.nextInt();}while(!(stationTo>0&&stationTo<=(bus_stations.length+1)));
+                        do{
+                        System.out.print("Select Car\n"+showCar(1,stationAt, time));
+                        System.out.print("Select: ");
+                        car = number.nextInt();}while(!(stationTo>0&&stationTo<=(bus_stations.length-3)));
+                        
                         System.out.print("Select Seat :"+showSeat(1, stationAt, time, car));
-                        System.out.print("\nSelect: ");
+                        System.out.print("Select: ");
                         seat = character.nextLine();
                         Car_At.selectSeat(seat);
                         price=calulate(1, stationTo);
@@ -113,11 +118,11 @@ public class BookSystem {
                         System.out.print("Select Car\n"+showCar(2,stationAt, time));
                         System.out.print("Select: ");
                         car = number.nextInt();}while(!(stationTo>0&&stationTo<=(bus_stations.length-3)));
-                        do{
+                        
                         System.out.print("Select Seat :"+showSeat(2, stationAt, time, car));
                         System.out.print("Select: ");
                         seat = character.nextLine();
-                        Car_At.selectSeat(seat);}while(!(stationTo>0&&stationTo<=(Car_At.getSeat().length)));
+                        Car_At.selectSeat(seat);
                         price=calulate(1, stationTo);
                         System.out.println("All price is "+price);
                         
