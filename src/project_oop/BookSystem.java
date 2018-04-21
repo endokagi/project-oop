@@ -37,7 +37,7 @@ public class BookSystem {
                     + "\nHow much ?\n$");
              int money=number.nextInt();
             if(!(money>0&&money<1000000000)){
-                System.out.println("topup money "+money+" Fail!");
+                System.out.println("topup money 000000000)"+money+" Fail!");
                 System.out.println("Please again\n");
                 topupMoney(user_at);
             }else{
@@ -114,10 +114,11 @@ public class BookSystem {
                         System.out.print("\nSelect Time\n"+showTime(2));
                         System.out.print("\nSelect: ");
                         time = number.nextInt();}while(!(stationTo>0&&stationTo<=(bus_stations.length+1)));
-                        do{
+                        
                         System.out.print("Select Car\n"+showCar(2,stationAt, time));
                         System.out.print("Select: ");
-                        car = number.nextInt();}while(!(stationTo>0&&stationTo<=(bus_stations.length-3)));
+                        car = number.nextInt();
+                        
                         
                         System.out.print("Select Seat :"+showSeat(2, stationAt, time, car));
                         System.out.print("Select: ");
@@ -186,13 +187,13 @@ public class BookSystem {
             String index="";
             String name="";
             if(type==1)
-            for(int i=0;i<indexfrom;i++){
-                 name+=String.format("%-10s=>",bus_stations[i+1].getName());
+            for(int i=indexfrom;i<bus_stations.length;i++){
+                 name+=String.format("%-10s=>",bus_stations[i].getName());
                  index+=String.format("%-4s(%-2s)%-4s","",(i+1),"");
             }
             else if(type==2)
             for(int i=indexfrom-1;i>=0;i--){
-                 name+=String.format("%-10s=>",bus_stations[i-1].getName());
+                 name+=String.format("%-10s=>",bus_stations[i].getName());
                  index+=String.format("%-4s(%-2s)%-4s","",(i+1),"");
             }
             output=name+"\n"+index;
